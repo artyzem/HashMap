@@ -1,17 +1,19 @@
+# Create a HashMap class
+
 class HashMap:
-  def __init__(self, array_size):
+  def __init__(self, array_size): # Only requires an array_size to initialise
     self.array_size = array_size
     self.array = [None for item in range(array_size)]
 
-  def hash(self, key, count_collisions=0):
+  def hash(self, key, count_collisions=0): # Hash a key. If there is a collision, we will need to hash to a different value
     key_bytes = key.encode()
     hash_code = sum(key_bytes)
     return hash_code + count_collisions
 
-  def compressor(self, hash_code):
+  def compressor(self, hash_code): # Ensure there is no error of assigning an index that is larger than the array size
     return hash_code % self.array_size
 
-  def assign(self, key, value):
+  def assign(self, key, value): # Assign a value to a key
     array_index = self.compressor(self.hash(key))
     current_array_value = self.array[array_index]
 
@@ -44,7 +46,7 @@ class HashMap:
 
     return
 
-  def retrieve(self, key):
+  def retrieve(self, key): # Retrieve a value, given a key
     array_index = self.compressor(self.hash(key))
     possible_return_value = self.array[array_index]
 
@@ -71,11 +73,12 @@ class HashMap:
 
     return
 
-hash_map = HashMap(20)
+# Time to test!
+hash_map = HashMap(20) # Hash Map with an array size of 20
 hash_map.assign("gabbro", "igneous")
 hash_map.assign("sandstone", "sedimentary")
 hash_map.assign("gneiss", "metamorphic")
 
-print(hash_map.retrieve("gabbro"))
+print(hash_map.retrieve("gabbro")) # Prints "igneous"
 print(hash_map.retrieve("sandstone"))
 print(hash_map.retrieve("gneiss"))
